@@ -1,0 +1,3 @@
+[submodule "VueJS/src/lib/external/Keen-UI/Keen-UI"]
+	path = VueJS/src/lib/external/Keen-UI/Keen-UI
+	url = https://github.com/JosephusPaye/Keen-UI.git
