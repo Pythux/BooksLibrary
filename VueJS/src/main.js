@@ -31,9 +31,18 @@ const router = new VueRouter({
 
 // order is important!
 // we create eventBus before components
-export const eventBus = {
-    books: new Vue(EventBusBooks)
-}
+export const $eventBus = new Vue({
+    data: {
+        books: new Vue(EventBusBooks)
+    }
+})
+// could use it by:
+// this.$eventBus.$on(...)
+// this.$eventBus.books.$on(...)
+
+// global eventBus:
+Vue.prototype.$eventBus = $eventBus
+
 
 new Vue({
   el: '#app',

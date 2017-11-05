@@ -33,7 +33,6 @@
         },
         computed: {
             table() {
-                console.log(this.axe)
                 var is_axe_x = ['horizontal', 'x'].includes(this.axe)
                 return {
                     axe: is_axe_x,
@@ -63,7 +62,7 @@
                 if (!this.table.axe) {
                     [x,y] = [y,x]
                 }
-                this.$emit('click', this.data[x], y)
+                this.$emit('click', this.data[y], x)
             }
         },
     }

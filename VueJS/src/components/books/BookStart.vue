@@ -4,7 +4,7 @@
             tag="button"
             :to="{ name: 'bookDetail', params: { id: 'myBook' } }"
             class="btn"
-      >Edit User</router-link>
+      >Create a Book</router-link>
   </div>
 </template>
 

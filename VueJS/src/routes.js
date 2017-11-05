@@ -33,7 +33,7 @@ export const routes = [
             // 'header-bottom': Header
         },
         children: [
-            { path: '', component: BookStart }, // if path: '/', it's / of main URL
+            { path: '', component: BookStart, name: 'books' }, // if path: '/', it's / of main URL
             { path: ':id', component: BookDetail, name: 'bookDetail' },
             { path: ':id/edit', component: BookEdit, name: 'bookEdit' },
         ]
@@ -43,6 +43,7 @@ export const routes = [
             default: About,
             'header-top': Header
         },
+        name: 'about',
         props: true,  name: 'about'
     },
     { path: '/redirect', redirect: { name: 'about', params: { name: 'Stranger' } } },

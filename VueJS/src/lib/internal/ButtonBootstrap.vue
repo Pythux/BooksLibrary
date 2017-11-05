@@ -2,7 +2,8 @@
     <button
         :class="'btn btn-' + type"
         @click="$emit('click', $event)"
-        ><i :class="'fa fa-' + fontAwesome"></i> <slot></slot></button>
+        ><i :class="'fa fa-' + fontAwesome" aria-hidden="true"
+        ></i> <slot></slot></button>
 </template>
 
 <script>

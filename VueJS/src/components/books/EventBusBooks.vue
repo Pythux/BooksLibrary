@@ -6,6 +6,7 @@
         data() {
             return {
                 books: [],
+                selected_book: { book: {}, attr_key: null }
             }
         },
         methods: {
@@ -25,9 +26,15 @@
             get_books() {
                 return this.books
             },
+            selected(book, attr_key) {
+                this.selected_book = { book, attr_key }
+                this.$emit('selected', book, attr_key)
+            },
+            get_selected() {
+                return Object.assign({}, this.selected_book)
+            }
         },
         created() {
-            console.log('eventBus Books created()')
             this.refresh()
             // setInterval(this.refresh, 5000)
         }
