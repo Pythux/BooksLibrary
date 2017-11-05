@@ -74,6 +74,7 @@
             },
             table_clicked(obj, index) {
                 console.log(obj, index);
+                this.$eventBus.books.$emit('selected', obj, )
             }
         },
         created() {

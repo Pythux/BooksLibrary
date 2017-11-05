@@ -63,7 +63,7 @@
                 if (!this.table.axe) {
                     [x,y] = [y,x]
                 }
-                this.$emit('click', this.data[x], y)
+                this.$emit('click', this.data[y], x)
             }
         },
     }

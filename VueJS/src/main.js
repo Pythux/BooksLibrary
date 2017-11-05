@@ -35,6 +35,10 @@ export const eventBus = {
     books: new Vue(EventBusBooks)
 }
 
+// global eventBus:
+Vue.prototype.$eventBus = eventBus
+
+
 new Vue({
   el: '#app',
   store,
