@@ -10,28 +10,6 @@
 
         <hr>
 
-        <!-- <button @click="showModalAdd = true">Add a Book</button> -->
-
-        <!-- <modal v-if="showModalAdd" @close="showModalAdd = false">
-            <h3 slot="header">Add a Book</h3>
-            <div slot="body">
-                    <label>ISBN: <input v-model="add.isbn"
-                           type="text" name="isbn" value="">
-                    </label><br>
-                    <label>Title: <input v-model="add.title"
-                           type="text" name="title" value="">
-                    </label><br>
-                    <label>Description: <textarea v-model="add.description"
-                              ame="description" rows="6" cols="30"></textarea>
-                    </label>
-                </form>
-            </div>
-            <div slot="footer">
-                <button @click="create_book">
-                  Create
-                </button>
-            </div>
-        </modal> -->
         <transition name="slide-fade" mode="out-in" duration="1000">
             <router-view></router-view>
         </transition>
