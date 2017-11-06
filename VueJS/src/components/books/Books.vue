@@ -17,7 +17,6 @@ en<template lang="html">
 
 <script>
     import { http, eventBus } from '../../main'
-    // import Modal from '../../lib/wrap/Modal.vue'
     import UiTable from '../../lib/std/UiTable.vue'
     import UiButton from '../../lib/std/UiButton.vue'
 
