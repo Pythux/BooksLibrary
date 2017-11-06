@@ -1,4 +1,4 @@
-<template lang="html">
+en<template lang="html">
     <div>
         <ui-table
             :data='books'
@@ -9,7 +9,6 @@
         />
 
         <hr>
-
         <transition name="slide-fade" mode="out-in" duration="1000">
             <router-view></router-view>
         </transition>
