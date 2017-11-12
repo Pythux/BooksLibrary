@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <h1>list of Author:</h1>
+  {% for author in author_list %}
+    <div class="col-xs-6">
+      {% include "library/author_.html" %}
+    </div>
+  {% endfor %}
+
+  <div class="container col-xs-12">
+    <a  href={% url 'author_new' %}
+        class="btn btn-primary">
+      {% bootstrap_icon "plus-sign" %} Add an Author</a>
+  </div>
+
+{% endblock %}

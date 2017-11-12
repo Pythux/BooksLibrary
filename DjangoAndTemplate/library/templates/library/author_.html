@@ -1,0 +1,13 @@
+<div class="media">
+  <a href={% url 'author_detail' pk=author.pk %}>
+    <h3>{{ author.first_name|title }} {{ author.last_name|title }}</h3>
+  </a>
+
+  <p>{{ author.description }}</p>
+
+  {% if author.books.count > 0 %}
+    <p>This author is linked to {{ author.books.count }} books.</p>
+  {% else %}
+    <p>This author is not linked to any books.</p>
+  {% endif %}
+</div>

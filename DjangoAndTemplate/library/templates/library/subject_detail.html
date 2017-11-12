@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <div class="container">
+    <p><b>Subject: </b>{{ subject.name|title }}</p>
+    <a  href={% url 'subject_delete' pk=subject.pk %}
+        class="btn btn-danger">{% bootstrap_icon "remove" %} Delete</a>
+    <a  href={% url 'subject_update' pk=subject.pk %}
+        class="btn btn-info">{% bootstrap_icon "edit" %} Update</a>
+
+  </div>
+{% endblock %}

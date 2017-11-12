@@ -1,0 +1,28 @@
+{% load bootstrap3 %}
+<div class="media">
+
+  <h3>
+    <a href={% url 'book_detail' pk=book.pk %}>{% bootstrap_icon "book" %}</a>
+     {{ book.name|title }}</h3>
+
+  <p><b>ISBN: </b><a href={% url 'book_detail' pk=book.pk %}>{{ book.isbn }}</a></p>
+
+  <!-- <h1>{{book.authors.all}}</h1> -->
+  <p>
+    <b>Authors: </b>
+    {% for author in book.authors.all %}
+      <a href={% url 'author_detail' pk=author.pk %}>
+        {{ author.first_name|title|slice:"1" }}. {{ author.last_name|title }}
+      </a>
+    {% endfor %}
+  </p>
+
+  <p>
+    <b>Subjects: </b>
+    {% for subject in book.subjects.all %}
+      <a href={% url 'subject_detail' pk=subject.pk %}>
+        {{ subject.name|title }}
+      </a>
+    {% endfor %}
+  </p>
+</div>

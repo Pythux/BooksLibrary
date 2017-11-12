@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  {% if object %}
+    <h1>Update the book "{{ object.name }}":</h1>
+  {% else %}
+    <h1>Create a Book:</h1>
+  {% endif %}
+
+  {% if author %}
+    <p>the Author: <b>{{ author.first_name|title }} {{ author.last_name }}</b>
+    <br>will be linked to this book at the creation.</p>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <!-- {{ form.as_p }} -->
+    {% bootstrap_form form %}
+    <button type="submit" class="save btn btn-default">
+      {% bootstrap_icon "star" %} Save
+    </button>
+  </form>
+{% endblock %}

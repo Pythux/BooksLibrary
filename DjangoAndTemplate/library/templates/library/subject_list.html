@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <h1>list of Subjects:</h1>
+  {% for subject in subject_list %}
+    <div class="col-xs-4">
+      <a href={% url 'subject_detail' pk=subject.pk %}>{{ subject.name }}</a>
+    </div>
+  {% endfor %}
+
+  <div class="container col-xs-12">
+    <a  href={% url 'subject_new' %}
+        class="btn btn-primary">
+      {% bootstrap_icon "plus-sign" %} Add a Subject</a>
+  </div>
+
+{% endblock %}

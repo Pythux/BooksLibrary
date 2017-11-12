@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <h1>list of Books:</h1>
+  {% for book in book_list %}
+    <div class="col-xs-6">
+      {% include "library/book_.html" %}
+    </div>
+  {% endfor %}
+
+
+  <div class="container col-xs-12">
+    <a  href={% url 'book_new' %}
+        class="btn btn-primary">
+      {% bootstrap_icon "plus-sign" %} Add a Book</a>
+  </div>
+
+{% endblock %}
