@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Book's Library</title>
+
+    {# Bootrstap #}
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    {# Fonts #}
+    <link href="https://fonts.googleapis.com/css?family=Montez|Russo+One|Montserrat"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+
+  </head>
+  <body>
+    <canvas id="canvas" style="position:absolute; top:0px; left:0px; z-index:-1;">
+    </canvas>
+    <nav class="navbar mynav" role="navigation" id='navbar'>
+      <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand mynav">Book's Library</a>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href={% url 'book_list' %}>Books</a></li>
+          <li><a href={% url 'author_list' %}>Authors</a></li>
+          <li><a href={% url 'subject_list' %}>Subjects</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+          {% else %}
+            <li><a href="{% url 'accounts:login' %}">Log In</a></li>
+            <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mycontent">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </body>
+  {% comment %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+  {% endcomment %}
+  <!-- <script type="text/javascript"
+          src="{% static 'js/master.js' %}"></script> -->
+</html>
