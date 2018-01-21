@@ -8,6 +8,10 @@ from sqlalchemy.orm import validates
 from flask_restless import APIManager
 
 
+class ValidationError(Exception):
+    pass
+
+
 app = flask.Flask(__name__)
 
 app.config['DEBUG'] = True
@@ -64,7 +68,12 @@ class Book(db.Model):
 
     @validates('isbn')
     def validate_isbn(self, key, isbn):
-        assert ISBN_VALIDATOR.match(isbn)
+        if not ISBN_VALIDATOR.match(isbn):
+            exception = ValidationError()
+            exception.errors = {
+                'isbn': 'must match pattern: {}'.format(
+                    ISBN_VALIDATOR.pattern)}
+            raise exception
         return isbn
 
 
@@ -79,7 +88,16 @@ class Subject(db.Model):
 @app.after_request
 def add_cors_headers(response):
     # allow GET from crossorigin (like another port on localhost)
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080'
+    response.headers['Access-Control-Allow-Origin'] = '*'  # http://localhost:8080
+
+    response.headers['Access-Control-Allow-Methods'] = \
+        'GET, OPTIONS, POST, DELETE, PUT, PATCH'
+    """The Access-Control-Allow-Methods response header
+    specifies the method or methods allowed
+    when accessing the resource in response to a preflight request.
+
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods"""
+
     # allow POST on crossorigin (it will make a OPTIONS to know it)
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
@@ -91,7 +109,9 @@ if __name__ == '__main__':
     manager = APIManager(app, flask_sqlalchemy_db=db)
     # which will be available at /api/<tablename> by default.
     allowed_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-    blueprint = manager.create_api(Book, methods=allowed_methods, collection_name='books')
+    blueprint = manager.create_api(Book, methods=allowed_methods,
+                                   collection_name='books',
+                                   validation_exceptions=[ValidationError])
     manager.create_api(Author, methods=allowed_methods, collection_name='authors')
     manager.create_api(Subject, methods=allowed_methods,
                        collection_name='subjects',

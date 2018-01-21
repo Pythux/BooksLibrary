@@ -23,6 +23,15 @@
                     .then(response => this.refresh())
                     .catch(error => console.log(error))
             },
+            update_book(book, key, value) {
+                console.log(`update book: ${book} key: ${key} with value: ${value}`)
+                http.patch(`/books/${book.id}`, {
+                    [key]: value
+                }).then(response => {
+                    console.log('updated!')
+                    this.refresh()
+                }).catch(error => { console.log(error.response) })
+            },
             get_books() {
                 return this.books
             },
