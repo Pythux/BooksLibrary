@@ -16,7 +16,6 @@
 </template>
 
 <script>
-    import { http } from '../../main'
     import UiTable from '../../lib/std/UiTable.vue'
     import UiButton from '../../lib/std/UiButton.vue'
 

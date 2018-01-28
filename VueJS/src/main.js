@@ -14,11 +14,12 @@ import { routes } from './routes'
 // EVENT BUS:
 import EventBusBooks from './components/books/EventBusBooks.vue'
 
-// Vuex
+// VueX
 import { store } from './store/store'
 
 // API REST
-export var http = Axios.create({baseURL: 'http://localhost:5000/api'})
+const http = Axios.create({baseURL: 'http://localhost:5000/api'})
+Vue.prototype.$http = http
 
 // connect router to VueJS
 Vue.use(VueRouter)
@@ -31,7 +32,7 @@ const router = new VueRouter({
 
 // order is important!
 // we create eventBus before components
-export const $eventBus = new Vue({
+const $eventBus = new Vue({
     data: {
         books: new Vue(EventBusBooks)
     }
@@ -46,7 +47,7 @@ Vue.prototype.$eventBus = $eventBus
 
 new Vue({
   el: '#app',
-  store,
+  store, // VueX
   router,
   render: h => h(App)
 })

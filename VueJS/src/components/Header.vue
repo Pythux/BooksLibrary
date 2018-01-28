@@ -11,11 +11,11 @@
 
       </h1>
       <ul class="nav nav-pills">
-          <router-link to="/books" tag="li" active-class="active" exact>
+          <router-link to="/books" tag="button" active-class="active" exact>
               <a>Books</a>
           </router-link>
           <router-link
-            to="/about/you?a=2" tag="li"
+            to="/about/you?a=2" tag="button"
             active-class="active" exact
           ><a>about</a></router-link>
       </ul>
@@ -39,4 +39,7 @@
 </script>
 
 <style lang="css">
+    body {
+        background-color: #83DDD6;
+    }
 </style>

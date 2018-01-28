@@ -20,10 +20,14 @@
       <hr>
       <p>query: {{ $route.query }}</p>
       <div class="col-md-offset-5 col-xs-offset-5">
-          <ui-button type="warning" i="check" @click="increment">Inc</ui-button>
+          <ui-button type="info" i="check" @click="asyncIncrement">asyncIncrement</ui-button>
+          <ui-button type="warning" i="check" @click="increment(100)">BigInc</ui-button>
           <ui-button type="danger" i="close" @click="decrement">Dec</ui-button>
-          <!-- <button class="btn btn-primary" @click="decrement">Dec</button> -->
+
           <p>Counter is: {{ counter }}, double is: {{ double }}</p>
+          <p>to add: <input type="number"
+              :value="second_counter" @input="to_add"
+              > = {{sum}}</p>
       </div>
       <hr>
       <div class="col-md-offset-2 col-xs-offset-2">
@@ -35,11 +39,16 @@
             </span>
           </transition-group>
       </div>
+      <hr>
+      <input type="text" v-model="value"> value: {{ value }}
   </div>
 </template>
 
 <script>
     import UiButton from '../lib/std/UiButton.vue'
+    import {mapGetters, mapMutations, mapActions, createNamespacedHelpers} from 'vuex'
+    const second_counter = createNamespacedHelpers('second_counter')
+    import * as space from '../store/namespace'
     export default {
         props: ['name'],
         components: {
@@ -52,13 +61,20 @@
             }
         },
         methods: {
-            increment() {
-                // this.$emit('updated', 1)
-                this.$store.state.counter++
+            ...mapMutations([
+                // 'increment',
+                'decrement'
+            ]),
+            ...mapActions([
+                // 'increment',
+                'asyncIncrement'
+            ]),
+            increment(by) {
+                this.$store.dispatch('increment', by)
             },
-            decrement() {
-                // this.$emit('updated', -1)
-                this.$store.state.counter--
+            to_add(input) {
+                this.$store.commit('second_counter/value',
+                                   parseFloat(input.target.value))
             },
             randomIndex: function () {
                 return Math.floor(Math.random() * this.items.length)
@@ -71,12 +87,32 @@
             },
         },
         computed: {
-            counter() {
-                return this.$store.state.counter
+            ...mapGetters({
+                counter: 'counter',
+                double: 'doubleCounter'
+            }),
+            // could also use array (when name match key)
+            // ...mapGetters([
+            //     'counter',
+            //     'doubleCounter'
+            // ]),
+            ...second_counter.mapGetters({
+                second_counter: 'counter',
+                sum: 'sum'
+            }),
+            value: {
+                get() {
+                    return this.$store.getters.value
+                },
+                // rare exception where we need to use getters/setters
+                // on computed property
+                // used for two way binding (v-model)
+                set(value) {
+                    // this.$store.dispatch('updateValue', value)
+                    // old way namespacing:
+                    this.$store.dispatch(space.updateValue, value)
+                }
             },
-            double() {
-                return this.$store.getters.doubleCounter
-            }
         }
     }
 </script>
