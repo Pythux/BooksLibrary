@@ -1,7 +1,7 @@
 {
   "name": "vue-cli",
   "description": "A Vue.js project",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "pythux@nowhere.org",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "bootstrap": "^4.0.0",
     "deep-assign": "latest",
     "font-awesome": "latest",
+    "sweet-modal-vue": "^2.0.0",
     "tether-drop": "latest",
     "vue": "latest",
     "vue-router": "latest",
@@ -28,6 +29,10 @@
     "babel-preset-stage-0": "latest",
     "cross-env": "latest",
     "css-loader": "^0.28.10",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-vue": "^4.3.0",
     "file-loader": "^1.1.9",
     "laravel-mix": "^2.0.0",
     "less": "^3.0.1",

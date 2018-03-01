@@ -1,27 +1,32 @@
 <template>
-  <div>
-      <modals></modals>
-      <router-view name="header-top"></router-view>
-      <transition name="slide-fade" mode="out-in" :duration="400">
-          <router-view></router-view>
-      </transition>
-      <router-view name="header-bottom"></router-view>
-  </div>
+    <div>
+        <!-- <modals/> -->
+        <router-view name="header-top"/>
+        <transition
+            :duration="400"
+            name="slide-fade"
+            mode="out-in"
+        >
+            <router-view/>
+        </transition>
+        <router-view name="header-bottom"/>
+    </div>
 </template>
 
 <script>
-    import Modals from './components/Modals.vue'
-    export default {
-        data() {
-            return {
-            }
-        },
-        components: {
-            Modals,
-        },
-        methods: {
-        },
-    }
+// import Modals from './components/Modals.vue'
+
+export default {
+    components: {
+        // Modals,
+    },
+    data() {
+        return {
+        }
+    },
+    methods: {
+    },
+}
 </script>
 <style>
     /* Les animations d'entrée (« enter ») et de sortie (« leave »)  */

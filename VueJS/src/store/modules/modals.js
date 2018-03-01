@@ -1,19 +1,25 @@
 
 
-const counterState = {
-    counter: 0,
+// used in components/Modals.vue
+// to have a global service for Modals !
+
+
+const modalsState = {
+    modals: [], // store the list of modals currently in actions
+    // Last in First out.
 }
 
 const getters = {
-    doubleCounter: state => state.counter * 2,
-    counter: state => state.counter,
+    modals: state => state.modals,
 }
 
 const mutations = {
-    increment: (state, payload = 1) => {
+    add: (state, payload = 1) => {
         state.counter += payload
     },
-    decrement: state => { state.counter -= 1 },
+    del_last: state => {
+        state.modals.pop()
+    },
 }
 
 const actions = {
@@ -30,7 +36,7 @@ const actions = {
 }
 
 export default {
-    state: counterState,
+    state: modalsState,
     getters,
     mutations,
     actions,

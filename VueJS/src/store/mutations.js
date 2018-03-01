@@ -1,2 +1,3 @@
 
-export const updateValue = (state, new_val) => state.value = new_val
+export const updateValue = (state, newVal) => { state.value = newVal }
+export const stuff = state => state

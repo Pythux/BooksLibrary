@@ -7,12 +7,12 @@ import * as mutations from './mutations'
 
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
     state: {
         value: 'val',
     },
     getters: {
-        value: ({value}) => value,
+        value: ({ value }) => value,
     },
     mutations,
     actions,
@@ -23,16 +23,19 @@ export const store = new Vuex.Store({
         second_counter: {
             // avoid: [vuex] duplicate getter key: counter
             namespaced: true,
-            state: {counter: 0},
+            state: { counter: 0 },
             getters: {
                 counter: state => state.counter,
-                sum: (state, getters, rootState, rootGetters) => {
-                    return getters.counter + rootGetters.counter
-                }
+                sum: (state, getters, rootState, rootGetters) =>
+                    getters.counter + rootGetters.counter,
             },
-            mutations: {value: (state, new_value) => state.counter = new_value},
-        }
-    }
+            mutations: {
+                value: (state, newValue) => {
+                    state.counter = newValue
+                },
+            },
+        },
+    },
 })
 
 // more info on vueX´s namespace:

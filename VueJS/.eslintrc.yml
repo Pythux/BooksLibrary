@@ -1,0 +1,31 @@
+parserOptions:
+    ecmaVersion: 2018 # fix comma-dangle rule for function args
+
+overrides:
+    - files: ['*.js', '*.vue']
+extends:
+    - airbnb-base
+    - plugin:vue/recommended
+rules:
+    indent: [2,4]
+    vue/html-indent: [2, 4]
+    semi: [2, "never"]
+    arrow-parens: [2, "as-needed"]
+    complexity: [1, 5]
+    # eqeqeq: off
+    no-param-reassign:
+      # for Vuex:
+      # https://github.com/vuejs-templates/webpack/issues/883
+      - error
+
+      - props: true
+        ignorePropertyModificationsFor:
+            - state
+            - acc
+            - e
+            - ctx
+            - req
+            - request
+            - res
+            - response
+            - $scope
