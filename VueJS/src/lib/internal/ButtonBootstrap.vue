@@ -2,14 +2,25 @@
     <button
         :class="'btn btn-' + type"
         @click="$emit('click', $event)"
-        ><i :class="'fa fa-' + fontAwesome" aria-hidden="true"
-        ></i> <slot></slot></button>
+    ><i
+        :class="'fa fa-' + fontAwesome"
+        aria-hidden="true"
+    /> <slot/></button>
 </template>
 
 <script>
-    export default {
-        props: ['type', 'fontAwesome'],
-    }
+export default {
+    props: {
+        type: {
+            type: String,
+            required: true,
+        },
+        fontAwesome: {
+            type: String,
+            required: true,
+        },
+    },
+}
 </script>
 
 <style lang="css" scoped>

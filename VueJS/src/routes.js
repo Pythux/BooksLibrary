@@ -5,10 +5,11 @@ import BookDetail from './components/books/BookDetail.vue'
 import About from './components/About.vue'
 
 // lazy loading
+/* eslint-disable global-require */
 const Books = resolve => {
     require.ensure(['./components/books/Books.vue'], () => {
         resolve(require('./components/books/Books.vue'))
-    }, ) // add 'books' to load all components in the same bundle 'books'
+    }) // add 'books' to load all components in the same bundle 'books'
 }
 
 // route.params to props:
@@ -17,30 +18,34 @@ const Books = resolve => {
 // props: { name: 'world' }}, // static values
 // props: dynamicPropsFn }, // custom logic for mapping between route and props
 
-export const routes = [
-    { path: '', name: 'home',
+export default [
+    {
+        path: '',
+        name: 'home',
         components: {
             default: Home,
-            'header-top': Header
-        }
+            'header-top': Header,
+        },
     },
-    { path: '/books',
+    {
+        path: '/books',
         components: {
             default: Books,
-            'header-top': Header
+            'header-top': Header,
             // 'header-bottom': Header
         },
         children: [
             { path: ':id', component: BookDetail, name: 'bookDetail' },
-        ]
+        ],
     },
-    { path: '/about/:name',
+    {
+        path: '/about/:name',
         components: {
             default: About,
-            'header-top': Header
+            'header-top': Header,
         },
         name: 'about',
-        props: true,  name: 'about'
+        props: true,
     },
     { path: '/redirect', redirect: { name: 'about', params: { name: 'Stranger' } } },
     { path: '*', redirect: '/' },
