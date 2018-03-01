@@ -9,14 +9,12 @@ import 'font-awesome/scss/font-awesome.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 
 import App from './App.vue'
-import { routes } from './routes'
-
-// Event Bus:
-import EventBusBooks from './components/books/EventBusBooks.vue'
-
+import routes from './routes'
 // VueX
 import store from './store/store'
 
+// Event Bus of Books:
+import EventBusBooks from './components/books/EventBusBooks.vue'
 
 // API REST
 const http = Axios.create({ baseURL: 'http://localhost:5000/api' })
@@ -41,6 +39,12 @@ const $eventBus = new Vue({
 // we could use it by:
 // this.$eventBus.$on(...)
 // this.$eventBus.books.$on(...)
+// .$off() -> remove all listeners from the selected eventBus
+// .$off('event') -> remove all listeners of the event
+// .$off('event', <fun>) -> remove the specifice listener <fun>
+// .$once(...) -> listen for the first emission of an event
+// .$emit('event', data)
+
 
 // global eventBus:
 Vue.prototype.$eventBus = $eventBus

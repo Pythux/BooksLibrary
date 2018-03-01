@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <modals/> -->
+        <modals/>
         <router-view name="header-top"/>
         <transition
             :duration="400"
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-// import Modals from './components/Modals.vue'
+import Modals from './components/Modals.vue'
 
 export default {
     components: {
-        // Modals,
+        Modals,
     },
     data() {
         return {

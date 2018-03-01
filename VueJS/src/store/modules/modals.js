@@ -1,7 +1,7 @@
 
 
 // used in components/Modals.vue
-// to have a global service for Modals !
+// to have a global service for Modals ;)
 
 
 const modalsState = {
@@ -14,30 +14,29 @@ const getters = {
 }
 
 const mutations = {
-    add: (state, payload = 1) => {
-        state.counter += payload
+    add: (state, modal) => {
+        state.modals.push(Object
+            .assign({ ref: state.modals.length }, modal))
     },
-    del_last: state => {
+    del_current: state => {
         state.modals.pop()
     },
 }
 
 const actions = {
-    // increment: context => {
-    //     context.commit('increment')
-    // }
-    increment: ({ commit }, payload) => {
-        commit('increment', payload)
+    add: ({ commit }, modal) => {
+        commit('add', modal)
+        // this.$eventBus.modals.add(modal)
+        // no event bus outside VueJS components
     },
-    // async on Action, not on Mutations!
-    asyncIncrement: ({ commit }) => {
-        setTimeout(() => commit('increment'), 1000)
+    del_current: ({ commit }) => {
+        commit('del_current')
     },
 }
 
 export default {
     state: modalsState,
-    getters,
     mutations,
     actions,
+    getters,
 }

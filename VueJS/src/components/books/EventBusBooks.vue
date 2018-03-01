@@ -22,10 +22,13 @@ export default {
             this.$http.post('/books', book)
                 .then(() => this.refresh())
         },
-        update_book(book, key, value) {
+        update_book(book, key, value, callbackCatch, callbackFinally) {
+            console.log(`try update: ${key}:=${value}`)
             this.$http.patch(`/books/${book.id}`, {
                 [key]: value,
             }).then(() => { this.refresh() })
+                .catch(callbackCatch)
+                .then(callbackFinally)
         },
         get_books() {
             return this.books

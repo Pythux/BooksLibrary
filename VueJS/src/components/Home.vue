@@ -5,7 +5,12 @@
 </template>
 
 <script>
+import UiButton from '../lib/std/UiButton.vue'
+
 export default {
+    components: {
+        UiButton,
+    },
 }
 </script>
 

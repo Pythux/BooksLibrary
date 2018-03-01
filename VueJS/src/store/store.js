@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import counter from './modules/counter'
+import modals from './modules/modals'
 import actions from './actions'
 import * as mutations from './mutations'
 
@@ -17,9 +18,24 @@ export default new Vuex.Store({
     mutations,
     actions,
     modules: {
-        // counter // no namespace
-        namespace: counter, // new way namespacing
+        // counter // no namespace (on old VueJS)
+        namespace: counter, // new way "namespacing"
         // store.state.namespace -> `namespace`´s state
+        // a: modals, // modals namespace
+        modals: {
+            // avoid: [vuex] duplicate getter key: counter
+            namespaced: true,
+            // state: { counter: 0 },
+            // mutations: {
+            //     value: (state, newValue) => {
+            //         state.counter = newValue
+            //     },
+            // },
+            state: modals.state,
+            mutations: modals.mutations,
+            actions: modals.actions,
+            getters: modals.getters,
+        },
         second_counter: {
             // avoid: [vuex] duplicate getter key: counter
             namespaced: true,

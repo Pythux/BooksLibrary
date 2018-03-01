@@ -28,9 +28,11 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
 import UiButton from '../../lib/std/UiButton.vue'
 import UiAlert from '../../lib/std/UiAlert.vue'
 
+const modals = createNamespacedHelpers('modals')
 export default {
     components: {
         UiButton,
@@ -54,6 +56,7 @@ export default {
         this.$eventBus.books.$off('selected', this.selected)
     },
     methods: {
+        ...modals.mapActions(['add']),
         selected(book, i) {
             this.book = book
             this.attr_key = i
@@ -64,7 +67,22 @@ export default {
             if (this.to_edit_str === Object(this.to_edit_str)) { this.to_edit_str = null }
         },
         edit() {
-            this.$eventBus.books.update_book(this.book, this.attr_key, this.to_edit_str)
+            const callbackCatch = err => {
+                console.log(JSON.stringify(err.response.data, null, 4))
+                this.add({
+                    icon: 'error',
+                    title: `Can't update: ${err.response.statusText}`,
+                    msg: err.response.data.validation_errors,
+                    button: "That's fine!",
+                })
+            }
+            const callbackFinally = () => {
+                console.log('finish calling')
+            }
+            this.$eventBus.books.update_book(
+                this.book, this.attr_key,
+                this.to_edit_str, callbackCatch, callbackFinally,
+            )
         },
     },
 }
