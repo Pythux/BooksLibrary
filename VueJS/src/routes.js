@@ -1,9 +1,7 @@
 import Header from './components/Header.vue'
 import Home from './components/Home.vue'
 
-import BookStart from './components/books/BookStart.vue'
 import BookDetail from './components/books/BookDetail.vue'
-import BookEdit from './components/books/BookEdit.vue'
 import About from './components/About.vue'
 
 // lazy loading
@@ -33,9 +31,7 @@ export const routes = [
             // 'header-bottom': Header
         },
         children: [
-            { path: '', component: BookStart }, // if path: '/', it's / of main URL
             { path: ':id', component: BookDetail, name: 'bookDetail' },
-            { path: ':id/edit', component: BookEdit, name: 'bookEdit' },
         ]
     },
     { path: '/about/:name',
@@ -43,6 +39,7 @@ export const routes = [
             default: About,
             'header-top': Header
         },
+        name: 'about',
         props: true,  name: 'about'
     },
     { path: '/redirect', redirect: { name: 'about', params: { name: 'Stranger' } } },

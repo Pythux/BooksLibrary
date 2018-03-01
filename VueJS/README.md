@@ -15,4 +15,11 @@ npm run dev
 npm run build
 ```
 
+if hot reload doesn't work:
+```bash
+npm rebuild node-sass --force
+npm update --dev --save (--save/--save-dev -f)
+npm install (--save/--save-dev)
+```
+
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).

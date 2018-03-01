@@ -1,6 +1,6 @@
+
 var path = require('path')
 var webpack = require('webpack')
-// var FontAwesome = require('font-awesome-webpack');
 
 module.exports = {
   entry: './src/main.js',
@@ -11,6 +11,18 @@ module.exports = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'vue-style-loader',
+      //     'css-loader'
+      //   ],
+      // },
+      {
+          test:/\.(css|scss|sass|less)$/i,
+          loader: "style-loader!css-loader!sass-loader"
+
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -32,29 +44,27 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       },
-        {
-            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-            loader: 'url-loader?limit=100000'
-        },
-        {
-            test:/\.(css|scss|sass|less)$/i,
-            loader: "style-loader!css-loader!sass-loader"
-        },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
+      },
     ]
   },
   resolveLoader: {
-    alias: {
-      'scss-loader': 'sass-loader',
+      alias: {
+        'scss-loader': 'sass-loader',
+      },
     },
-  },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     },
+    extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    overlay: true
   },
   performance: {
     hints: false

@@ -1,5 +1,6 @@
 <template>
   <div>
+      <modals></modals>
       <router-view name="header-top"></router-view>
       <transition name="slide-fade" mode="out-in" :duration="400">
           <router-view></router-view>
@@ -9,12 +10,14 @@
 </template>
 
 <script>
+    import Modals from './components/Modals.vue'
     export default {
         data() {
             return {
             }
         },
         components: {
+            Modals,
         },
         methods: {
         },
