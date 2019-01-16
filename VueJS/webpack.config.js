@@ -1,6 +1,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
     entry: './src/main.js',
@@ -81,6 +82,9 @@ module.exports = {
     devServer: {
         historyApiFallback: true, // fallback 404 to index.html
     },
+    plugins: [
+        new VueLoaderPlugin(),
+    ],
 }
 
 if (process.env.NODE_ENV === 'production') {

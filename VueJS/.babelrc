@@ -1,6 +1,5 @@
 {
   "presets": [
-    ["env", {"targets": {"chrome": 64}, "modules": false}],
-    "stage-0"
+    ["@babel/env", {"targets": "defaults", "modules": false}],
   ]
 }
