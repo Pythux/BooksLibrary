@@ -18,7 +18,8 @@ app.config['DEBUG'] = True
 path_sqlite = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                            'sqlite.db')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + path_sqlite # 'sqlite:///:memory:'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + path_sqlite  # 'sqlite:///:memory:'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -117,6 +118,12 @@ if __name__ == '__main__':
                        collection_name='subjects',
                        primary_key='subject',
                        exclude_columns=[])
+
+    # we could combine both way
+    @app.route("/")
+    def hello():
+        return "Hello World!"
+
     # start the flask loop
     app.run()
 
