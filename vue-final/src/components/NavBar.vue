@@ -30,7 +30,13 @@
               method="GET"
             >
               <transition
-                name="expend-width"
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter"
+                @enter-cancelled="enterCancelled"
+                @leave="leave"
+                @after-leave="afterLeave"
+                @leave-cancelled="leaveCancelled"
               >
                 <v-text-field
                   v-if="onSearch"
@@ -85,19 +91,57 @@ export default {
             {title: "yo2", subtitle: "data2"},
         ],
     }),
+    methods: {
+        beforeEnter (el) {
+            el._parent = el.parentNode
+            el._initialStyle = {
+                transition: el.style.transition,
+                visibility: el.style.visibility,
+                overflow: el.style.overflow,
+                width: el.style.width
+            }
+        },
+        enter (el) {
+            const initialStyle = el._initialStyle
+            el.style.setProperty('transition', 'none', 'important')
+            el.style.visibility = 'hidden'
+            const width = `${el.offsetWidth}px`
+            el.style.visibility = initialStyle.visibility
+            el.style.overflow = 'hidden'
+            el.style.width = 0
+            void el.offsetWidth // force reflow
+            el.style.transition = initialStyle.transition
+            el.style.transition = 'all 0.6s'
+
+            requestAnimationFrame(() => {
+                el.style.width = width
+            })
+        },
+
+        afterEnter: resetStyles,
+        enterCancelled: resetStyles,
+
+        leave (el) {
+            el._initialStyle = {
+                overflow: el.style.overflow,
+                width: el.style.width
+            }
+
+            el.style.overflow = 'hidden'
+            el.style.width = `${el.offsetWidth}px`
+
+            requestAnimationFrame(() => el.style.width = 0)
+        },
+        afterLeave,
+        leaveCancelled: afterLeave,
+    },
+}
+function afterLeave (el) {
+    resetStyles(el)
+}
+function resetStyles (el) {
+    el.style.overflow = el._initialStyle.overflow
+    el.style.width = el._initialStyle.width
+    delete el._initialStyle
 }
 </script>
-
-<style>
-.expend-width-leave-active, .expend-width-enter-active {
-    transition: all .6s ease-in;
-}
-.expend-width-enter, .expend-width-leave-to
-{
-    max-width: 0;
-}
-.expend-width-leave, .expend-width-enter-to
-{
-    max-width: 200px;
-}
-</style>
