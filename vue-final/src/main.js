@@ -13,6 +13,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import router from './router'
 import store from './store'
 
+import WidthTransition from './components/transitions/WidthTransition.vue'
+
+Vue.component('width-transition', WidthTransition)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$http = Axios.create({ baseURL: 'http://localhost:5000/api' })
