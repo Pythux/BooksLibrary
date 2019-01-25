@@ -144,6 +144,8 @@ http PUT :5000/api/books/1 title='a book' isbn=978-2-8688-9006-1 subjects:='[{"i
 
 http GET :5000/api/books
 
+http GET :5000/api/books q=='{"filters": [{"name": "title", "op": "like", "val": "%uit%"}]}'
+
 http PATCH :5000/api/books/1 title='better stronger faster'
 
 
