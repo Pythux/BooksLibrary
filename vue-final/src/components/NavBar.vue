@@ -35,6 +35,7 @@
                   autocomplete="off"
                   placeholder="Search"
                   name="q"
+                  @input="toSearch"
                 />
               </v-form>
 
@@ -52,6 +53,7 @@
         </v-layout>
 
         <v-layout
+          v-if="onSearch && items.length > 0"
           d-inline-flex
           style="height: 0px;"
         >
@@ -78,10 +80,30 @@
 export default {
     data: () => ({
         onSearch: false,
+        inputSearch: "",
         items: [
-            {title: "yo", subtitle: "data"},
-            {title: "yo2", subtitle: "data2"},
         ],
+
     }),
+    watch: {
+        onSearch(onSearch) {
+            if (!onSearch) {
+                this.items = []
+            }
+        }
+    },
+    methods: {
+        toSearch(input) {
+            if (input == "yo") {
+                this.items = [
+                    {title: "yo", subtitle: "data"},
+                    {title: "yo2", subtitle: "data2"},
+                ]
+            }
+            else {
+                this.items = []
+            }
+        }
+    },
 }
 </script>
