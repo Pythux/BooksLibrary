@@ -19,12 +19,14 @@ path_sqlite = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                            'sqlite.db')
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + path_sqlite  # 'sqlite:///:memory:'
+#                                       'sqlite:///:memory:'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + path_sqlite
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-many_many_author_book = db.Table('many_many_author_book',
+many_many_author_book = db.Table(
+    'many_many_author_book',
     db.Column('author_id', db.Integer,
               db.ForeignKey('author.id'), primary_key=True),
     db.Column('book_id', db.Integer,
@@ -50,7 +52,8 @@ ISBN_VALIDATOR = re.compile(
     r'(([0-9Xx][- ]*){13}|([0-9Xx][- ]*){10})$')
 
 
-many_many_book_subject = db.Table('many_many_book_subject',
+many_many_book_subject = db.Table(
+    'many_many_book_subject',
     db.Column('book_id', db.Integer,
               db.ForeignKey('book.id'), primary_key=True),
     db.Column('subject_id', db.Integer,
@@ -89,7 +92,7 @@ class Subject(db.Model):
 @app.after_request
 def add_cors_headers(response):
     # allow GET from crossorigin (like another port on localhost)
-    response.headers['Access-Control-Allow-Origin'] = '*'  # http://localhost:8080
+    response.headers['Access-Control-Allow-Origin'] = '*'
 
     response.headers['Access-Control-Allow-Methods'] = \
         'GET, OPTIONS, POST, DELETE, PUT, PATCH'
@@ -97,7 +100,8 @@ def add_cors_headers(response):
     specifies the method or methods allowed
     when accessing the resource in response to a preflight request.
 
-    https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods"""
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+    /Access-Control-Allow-Methods"""
 
     # allow POST on crossorigin (it will make a OPTIONS to know it)
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
@@ -113,7 +117,8 @@ if __name__ == '__main__':
     blueprint = manager.create_api(Book, methods=allowed_methods,
                                    collection_name='books',
                                    validation_exceptions=[ValidationError])
-    manager.create_api(Author, methods=allowed_methods, collection_name='authors')
+    manager.create_api(Author, methods=allowed_methods,
+                       collection_name='authors')
     manager.create_api(Subject, methods=allowed_methods,
                        collection_name='subjects',
                        primary_key='subject',
@@ -140,11 +145,13 @@ http POST :5000/api/subjects subject=thriller
 http POST :5000/api/authors first_name=John last_name=Doe
 
 http POST :5000/api/books title='a book' isbn=978-2-8688-9006-1
-http PUT :5000/api/books/1 title='a book' isbn=978-2-8688-9006-1 subjects:='[{"id": 1}]' authors:='[{"id": 1}]'
+http PUT :5000/api/books/1 title='a book' isbn=978-2-8688-9006-1
+                           subjects:='[{"id": 1}]' authors:='[{"id": 1}]'
 
 http GET :5000/api/books
 
-http GET :5000/api/books q=='{"filters": [{"name": "title", "op": "like", "val": "%uit%"}]}'
+http GET :5000/api/books
+            q=='{"filters": [{"name": "title", "op": "like", "val": "%uit%"}]}'
 
 http PATCH :5000/api/books/1 title='better stronger faster'
 
