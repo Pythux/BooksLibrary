@@ -86,6 +86,7 @@ export default {
     },
     methods: {
         toSearch(input) {
+            let httpSearchNonce = new Object()
             if (input == '') {
                 this.items = []
                 return
@@ -119,7 +120,15 @@ export default {
                     }))
             })
             const http_search = async () => {
-                this.items = (await Promise.all(promises)).flat(1)
+                const localNonce = httpSearchNonce = new Object()
+                function sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms))
+                }
+                await sleep(300)
+                if (localNonce !== httpSearchNonce) { return }
+                const items = (await Promise.all(promises)).flat(1)
+                if (localNonce !== httpSearchNonce) { return }
+                this.items = items
             }
             http_search()
         }
